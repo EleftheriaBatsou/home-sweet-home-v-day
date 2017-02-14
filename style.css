@@ -1,0 +1,222 @@
+html, body {
+    /* The universe takes up all available space */
+    width: 100%;
+    height: 100%;
+    color: brown;
+    background-color: #FFE0B2; /* light green */  
+}
+
+
+.box{  
+  position: relative;
+  margin: auto;
+  display: block;
+  /*optional background or border*/
+  border: solid 4px brown;
+  
+  margin-top: 37%;
+  width: 610px;
+  height: 100%;
+  background: none;
+  
+  z-index: 2;
+}
+
+#square {
+    border-radius: 1%;
+    background-color: #ECEFF1; 
+    /* verically */
+    position: relative;
+    display: block;
+    margin: auto;
+
+    width: 600px;
+    height: 520px;
+  
+    z-index: 4;
+}
+
+.roof{
+  position: absolute;
+  top: -50%;
+  left: -10%;
+  width: 120%;
+  height: 50%;
+  background:  red;
+  
+  
+  -webkit-clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+}
+
+.door{
+  position: absolute;
+  background: #BE845F;
+  width: 25%;
+  height: 48.5%;
+  left: 37%;
+  top: 52%;
+  border-radius: 10px;
+  z-index: 4;
+}
+
+.catch-door{
+  position: absolute;
+  width: 10%;
+  height: 10%;
+  top: 35%;
+  left: 17%;
+  border-radius: 50%;
+  background: brown;
+}
+
+.balconi{
+  position: absolute;
+  background: #BE845F;
+  width: 25%;
+  height: 4.5%;
+  left: 37%;
+  top: 44%;
+  border-radius: 0px;
+  z-index: 14;
+}
+
+.window{
+  position: absolute;
+  background: none;
+  width: 25%;
+  height: 26.5%;
+  left: 37%;
+  top: 22%;
+  border-radius: 1px;
+  z-index: 2;
+  border: solid 4px brown;
+}
+
+.curtain-left{
+  position: absolute;
+  background: pink;
+  width: 12%;
+  height: 20%;
+  top: 22%;
+  left: 37%;
+ 
+  z-index: 0;
+  -webkit-clip-path: polygon(100% 0, 0 100%, 0 0);
+  clip-path: polygon(100% 0, 0 100%, 0 0);
+}
+.curtain-right{
+  position: absolute;
+  background: pink;
+  width: 12%;
+  height: 20%;
+  top: 22%;
+  right: 38%;
+  
+  z-index: 1;
+  
+  -webkit-clip-path: polygon(100% 0, 0 0, 100% 100%);
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+}
+
+
+#me{
+  width: 80px;
+  height: auto;
+  /*in order to bounce */
+  -webkit-animation: bounce 2s infinite ease-in-out;
+  
+  z-index: 10;
+  
+  position: absolute;
+  left: 43%;
+  top: 27.5%;
+  
+  font-size: 200%;
+}
+#forMe{
+  position:absolute;
+  z-index: 10;
+  color: red;
+  font-size: 18px;
+  left: 43%;
+  top: 22.5%;
+  
+}
+
+
+#words{
+  -webkit-animation: bounce 2s infinite ease-in-out;
+  
+  z-index: 10;
+  
+  position: absolute;
+  left: 37%;
+  top: 7.5%;
+  color: red; !important
+  font-size: 400%;
+}
+
+
+/* me bouncing*/
+@-webkit-keyframes bounce {
+	0%, 20%, 60%, 100%  { -webkit-transform: translateY(0); }
+  40%  { -webkit-transform: translateY(-20px); }
+	80% { -webkit-transform: translateY(-10px); }
+  }
+
+
+.tree{
+  position: absolute;
+  background: #2E0A09; /* dark brown */
+  width: 20%;
+  height: 55.5%;
+  left: -10%;
+  top: 45.5%;
+  border-radius: 10px;
+  z-index: 4;
+}
+
+.aboveTheTree{
+  position: absolute;
+  background: green; 
+  
+  width: 40%;
+  height: 43%;
+  top: 15%;
+  left: -20%;
+  border-radius: 50%;
+  z-index: 6;
+}
+
+#you{
+  width: 80px;
+  height: auto; 
+  position:absolute;
+  z-index: 30;
+  
+  top: -60%;
+  left: -12%;
+}
+
+#forYou{
+  position:absolute;
+  z-index: 30;
+  
+  top: -70%;
+  left: -12%;
+}
+
+
+div.explode{
+    position: absolute;
+  background: red;
+  width: 25%;
+  height: 25%;
+  left: 37%;
+  top: 22%;
+  
+  z-index: 14;
+
+}
+

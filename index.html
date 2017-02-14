@@ -1,0 +1,264 @@
+<html>
+  <head>
+  
+  <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+
+<!--Links -->
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/199011/bebas.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+
+
+<link href="style.css" rel="stylesheet" type="text/css">
+  
+  
+  
+  </head>
+  <body>
+    <div class="container-fluid text-center">
+       
+    <div class="row"> <!-- for title -->
+      <h1>  Home sweet home </h1>  
+    </div> <!-- end title -->
+      
+      
+      
+      
+    <!-- MAIN -->
+    <div class="box">  
+    <canvas id="words"></canvas>
+      
+      <div id="square">
+      <div class="roof"></div>
+      <div class="door"><div class="catch-door"></div></div>
+        
+      <div class="balconi"></div>
+        
+      <div class="window"></div>
+      <div class="curtain-left"></div>
+      <div class="curtain-right"></div>
+        
+      <!-- Right below is an image of the me -->
+        <img class="responsive-img" id="me" src="http://i1356.photobucket.com/albums/q729/eleftheria_b/my%20face/kappalambdataurho-v3_zpseh1dg7kw.png" alt="this's me">
+        <p id="forMe"> Hi baby</p>
+      
+        <div class="tree"></div>
+        <div class="aboveTheTree"></div>
+
+        </div><!-- end of squre -->
+      
+      <img class="responsive-img" id="you" src="http://i1356.photobucket.com/albums/q729/eleftheria_b/my%20face/bb2_zps7diibwhz.gif" alt="this's you">
+      <p id="forYou"> drag my sexy face down <br> to the red square, and then click it!</p>
+   
+      
+      <div class="explode"></div>
+
+  </div> <!-- end class box -->
+      
+      
+      
+      
+      <div> <!-- for footer -->
+      <h5><a href="http://www.eleftheriabatsou.com" target="_blank">Eleftheria Batsou</a> | <a href="http://codepen.io/EleftheriaBatsou" target="_blank">Projects</a></h5>
+    </div> <!-- end footer -->
+      
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  <script>
+	var canvas=document.getElementById("words");
+var ctx=canvas.getContext("2d");
+var cw=canvas.width;
+var ch=canvas.height;
+function reOffset(){
+    var BB=canvas.getBoundingClientRect();
+    offsetX=BB.left;
+    offsetY=BB.top;        
+}
+var offsetX,offsetY;
+reOffset();
+window.onscroll=function(e){ reOffset(); }
+
+
+var words=[
+    {text:'Be',x0:Math.random()*cw,y0:(Math.random()*100)+ch,x1:20,y1:50,size:10,delay:200,pct:0},
+    {text:'my'     ,x0:Math.random()*cw,y0:(Math.random()*100)+ch,x1:20,y1:50,size:15,delay:600,pct:0},
+    {text:'Valentine' ,x0:Math.random()*cw,y0:(Math.random()*100)+ch,x1:20,y1:50,size:20,delay:1000,pct:0},
+    {text:'!' ,x0:Math.random()*cw,y0:(Math.random()*100)+ch,x1:20,y1:50,size:10,delay:1400,pct:0},
+]
+    ctx.baseLine='bottom';
+    
+    var accumX=0;
+    for(var i=0;i<words.length;i++){
+    w=words[i];
+ctx.font=w.size+'px verdana';
+
+var width=ctx.measureText(w.text).width;
+w.x1=accumX;
+accumX+=(width+8);
+w.dx=w.x1-w.x0;
+w.dy=w.y1-w.y0;
+}
+
+var start=performance.now();
+requestAnimationFrame(animate);
+
+function animate(time){
+    var countComplete=0;
+    // clear the canvas for this new frame
+    ctx.clearRect(0,0,cw,ch);
+    for(var i=0;i<words.length;i++){
+        var w=words[i];
+        if(w.pct==100){countComplete++;}
+        // calc the appropriate x,y waypoint
+        var x=w.x0+w.dx*w.pct/100;
+        var y=w.y0+w.dy*w.pct/100;
+        w.pct=Math.min(100,w.pct+1);
+        // draw the text
+        ctx.font=w.size+'px verdana';
+        
+        ctx.fillText(w.text,x,y);
+    }
+    // request another loop if the animation is not complete
+    if(countComplete<words.length){
+        requestAnimationFrame(animate);
+    }
+}
+
+
+/////////////////////////////////////
+// for you
+////////////////////////////////////
+
+$(function() {
+    var $d = $("#you");
+
+    var x1, x2, y1, y2, t1, t2, // Posititons/Time
+        minDistance = 40,       // Minimum px distance object must be dragged to enable momentum.
+        friction = 1;           // Set friction higher to make tossing harder
+    
+    var onMouseMove = function(e) {
+        var mouseEvents = $d.data("mouseEvents");
+        if (e.timeStamp - mouseEvents[mouseEvents.length - 1].timeStamp > 40) {
+            mouseEvents.push(e);
+            if (mouseEvents.length > 2) {
+                mouseEvents.shift();
+            }
+        }
+    };
+
+    var onMouseUp = function() {
+        $(document).unbind("mousemove mouseup");
+    };
+
+    $d.draggable({
+        start: function(e, ui) {
+            $d.data("mouseEvents", [e]);
+            $(document).mousemove(onMouseMove).mouseup(onMouseUp);
+        },
+        stop: function(e, ui) {
+            $d.stop();
+            $d.css("text-indent", 100);
+
+            var lastE = $d.data("mouseEvents").shift();
+
+            x1 = lastE.pageX;
+            y1 = lastE.pageY;
+            t1 = lastE.timeStamp;
+            x2 = e.pageX;
+            y2 = e.pageY;
+            t2 = e.timeStamp;
+
+            // Deltas
+            var dX = x2 - x1,
+                dY = y2 - y1,
+                dMs = Math.max(t2 - t1, 1);
+
+            // Speeds
+            var speedX = Math.max(Math.min(dX / dMs, 1), -1),
+                speedY = Math.max(Math.min(dY / dMs, 1), -1);
+
+            // Distance moved (Euclidean distance)
+            var distance = Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+
+            if (distance > minDistance) {
+                // Momentum
+                var lastStepTime = new Date();
+                
+                var maxLeft = $(window).width() - ($d.width() + 10),
+                    maxTop = $(window).height() - ($d.height() + 10);
+
+                $d.animate({
+                    textIndent: 0
+                }, {
+                    duration: Math.max(Math.abs(speedX), Math.abs(speedY)) * 2000,
+                    step: function(currentStep) {
+                        speedX *= (currentStep / 100);
+                        speedY *= (currentStep / 100);
+
+                        var now = new Date();
+                        var stepDuration = now.getTime() - lastStepTime.getTime();
+
+                        lastStepTime = now;
+
+                        var position = $d.position();
+
+                        var newLeft = (position.left + (speedX * stepDuration / friction)),
+                            newTop = (position.top + (speedY * stepDuration / friction));
+                        newLeft = newLeft > maxLeft ? maxLeft : newLeft < 10 ? 10 : newLeft;
+                        newTop  = newTop  > maxTop  ? maxTop  : newTop  < 10 ? 10 : newTop;
+
+                        $d.css({
+                            left: newLeft + "px",
+                            top: newTop + "px"
+                        });
+                    }
+                });
+            }
+        }
+    });
+});
+
+/////////////////
+// explode
+////////////////
+
+$(document).ready(function(){
+  
+    $("div.explode").click(function(){
+        $("div.explode").effect("explode");           
+    });
+    
+});
+  
+  </script>
+	  
+	  
+	  
+	  
+  </body>
+</html>
